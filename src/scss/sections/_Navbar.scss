@@ -63,7 +63,7 @@
     top: 50%;
     right: 0;
     background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 5px;
+    @include border-radius(5px);
     margin-top: 45px;
 
     &.open { 

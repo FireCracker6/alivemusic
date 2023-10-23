@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import logo from '../images/logos/alive-logo-transparent-png.png';
+import SignUp from '../SignUpSignIn/SignUp';
 
-function Navbar() {
+
+interface NavbarProps {
+  openModal: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ openModal }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -22,7 +30,7 @@ function Navbar() {
             </ul>
             <ul className="menu-group right">
                 <li><a href="#">Login</a></li>
-                <li><a href="#">Create Account</a></li>
+                <li><a href="#" onClick={openModal}>Create Account</a></li>
                 <li><a href="#">For Artists</a></li>
             </ul>
         </div>
