@@ -49,7 +49,7 @@ const Dashboard: React.FC = ()  => {
         <>
         {/* should not be visible if user does not have a profile at all -- access denied or no route   */}
         <div className="container d-flex justify-content-center py-4">
-            <h1>Welcome {user?.email}</h1>
+            <h2>Welcome to Alive!  {user?.email}</h2>
 
         </div>
         </>

@@ -96,18 +96,29 @@ const SignUp: React.FC<SignUpProps> = ({isModal, closeModal}) => {
     
 
  // Google Signup
- useEffect(() => {
+
+
+const startGoogleOneTap = () => {
+    if (window.google && window.google.accounts.id) {
+        window.google.accounts.id.prompt();
+    } else {
+        console.error("Google One Tap library not loaded.");
+    }
+};
+useEffect(() => {
     loadGoogleScript(() => {
-        // Initialize Google's One Tap
         (window.google.accounts.id as any).initialize({
             client_id: '239924498555-ttk9cn2eg5j31kh85jdgidu1gm1qbhpo.apps.googleusercontent.com',
             callback: handleGoogleResponse
-            
         });
-        window.google.accounts.id.prompt();
-        console.log("Google Script Loaded. Initializing One Tap...");
+        console.log("Google Script Loaded.");
+        // Prompting the user after initialization
+        startGoogleOneTap();
     });
 }, []);
+
+
+
 
 const handleGoogleResponse = (response: any) => {
     const token = response.credential;
@@ -249,12 +260,16 @@ const loadGoogleScript = (callback: ((this: GlobalEventHandlers, ev: Event) => a
                                             {/*Sign up with google */}
                                            
                     </form>
-                    <GoogleAuthButton 
-    clientId="239924498555-ttk9cn2eg5j31kh85jdgidu1gm1qbhpo.apps.googleusercontent.com"
-    redirectUri="http://localhost:3000/auth/callback"
-    scope="profile email"
-/>
+                   <div className='container d-flex justify-content-center py-4'>
+                   <GoogleAuthButton 
+                    clientId="239924498555-ttk9cn2eg5j31kh85jdgidu1gm1qbhpo.apps.googleusercontent.com"
+                    redirectUri="http://localhost:3000/auth/callback"
+                    scope="profile email"
+                    onStartGoogleOneTap={startGoogleOneTap}
+                     />
 
+                   </div>
+                
                 </div>
             </Modal>
         </>
